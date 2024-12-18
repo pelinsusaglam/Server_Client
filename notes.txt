@@ -1,0 +1,61 @@
+socket()--> Creates socket coonection.
+usage:
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+Parameters:
+	•	AF_INET: For IPv4 addresses.
+	•	SOCK_STREAM: For TCP connections.
+	•	Use SOCK_DGRAM for UDP.
+
+
+bind()--> Binds the socket to an IP address and port (typically for servers).
+usage:
+s.bind(('127.0.0.1', 8080))  # Bind to IP and Port
+Port numbers range from 0 to 65535. Ports below 1024 are usually reserved for system use.
+
+
+listen()--> Sets the socket to listen mode, waiting for incoming connections.
+usage:
+s.listen(5)  # Accept up to 5 pending connections
+This is used on server-side sockets.
+
+accept()--> Accepts an incoming connection request.
+usage:
+conn, addr = s.accept()
+print(f'Connection accepted from: {addr}')
+	Returns:
+	•	conn: A new socket to communicate with the client.
+	•	addr: The client’s address (IP, Port).
+
+
+connect()--> Connects to a server (used by clients).
+s.connect(('127.0.0.1', 8080))
+The server must be set up with bind() and listen().
+
+
+connect_ex()--> Similar to connect(), but returns an error code instead of raising an exception on failure.
+usage:
+result = s.connect_ex(('127.0.0.1', 8080))
+if result == 0:
+    print("Connection successful")
+else:
+    print("Connection failed with error:", result)
+
+
+send()--> Sends data through the socket (for TCP).
+usage:
+s.send(b'Hello, Server!')  # Data must be sent as bytes
+
+
+recv()--> Receives data from the socket.
+usage:
+data = s.recv(1024)  # Receive up to 1024 bytes
+print("Received data:", data.decode())
+
+
+close()--> Closes the socket.
+usage:
+s.close()
+Always call this when the communication is finished.
+
+
